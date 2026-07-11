@@ -1,0 +1,17 @@
+{
+  "name": "eyes-alarm",
+  "version": "1.0.0",
+  "private": true,
+  "description": "라식 안약 점안 알림 PWA / Capacitor 네이티브 앱",
+  "scripts": {
+    "serve": "python -m http.server 8000 --directory www",
+    "icons": "node scripts/generate-icons.cjs",
+    "sync": "npx cap sync android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.4.1",
+    "@capacitor/cli": "^8.4.1",
+    "@capacitor/core": "^8.4.1",
+    "@capacitor/local-notifications": "^8.2.0"
+  }
+}

@@ -1,0 +1,13 @@
+.vercel
+node_modules
+
+# Android build outputs (android/ project source itself is committed)
+android/app/build
+android/build
+android/.gradle
+android/local.properties
+android/captures
+android/.idea
+*.apk
+*.aab
+www/.vercel

@@ -125,7 +125,7 @@ function renderIcon(size, { maskable }) {
   return out;
 }
 
-const outDir = path.join(__dirname, '..', 'icons');
+const outDir = path.join(__dirname, '..', 'www', 'icons');
 fs.mkdirSync(outDir, { recursive: true });
 
 const targets = [

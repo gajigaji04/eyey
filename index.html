@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>안약 알림</title>
+<meta name="description" content="라식 후 안약 점안 시간을 알려주는 알림 앱" />
+<meta name="theme-color" content="#2563eb" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" href="icons/icon-192.png" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="app">
+  <header class="app-header">
+    <h1>💧 안약 알림</h1>
+    <button id="notif-btn" class="notif-btn" type="button" hidden>알림 켜기</button>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab-btn active" data-tab="today" type="button">오늘</button>
+    <button class="tab-btn" data-tab="meds" type="button">안약 관리</button>
+    <button class="tab-btn" data-tab="settings" type="button">생활 패턴</button>
+  </nav>
+
+  <main>
+    <section id="view-today" class="view">
+      <div class="card summary-card">
+        <div class="summary-rate">
+          <div class="rate-number" id="rate-number">0%</div>
+          <div class="rate-label">오늘 완료율</div>
+        </div>
+        <div class="rate-bar-track">
+          <div class="rate-bar-fill" id="rate-bar-fill"></div>
+        </div>
+        <div class="rate-sub" id="rate-sub">0 / 0회 완료</div>
+      </div>
+
+      <div class="card current-card" id="current-card">
+        <div class="card-label">지금 넣어야 하는 안약</div>
+        <div id="current-dose-content">일정을 불러오는 중...</div>
+      </div>
+
+      <div class="card next-card" id="next-card">
+        <div class="card-label">다음 안약까지 남은 시간</div>
+        <div id="next-dose-content">-</div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">오늘 전체 일정</div>
+        <ul id="schedule-list" class="schedule-list"></ul>
+      </div>
+    </section>
+
+    <section id="view-meds" class="view hidden">
+      <p class="hint">안약을 켜고 끄거나, 이름·주기를 수정하고, 새 안약을 추가할 수 있어요.</p>
+      <div id="med-list" class="med-list"></div>
+      <button id="add-med-btn" class="add-btn" type="button">+ 새 안약 추가</button>
+    </section>
+
+    <section id="view-settings" class="view hidden">
+      <p class="hint">기상/점심/저녁/취침 시간을 바꾸면 정해진 시간 안약과 주기 안약 일정이 자동으로 다시 계산돼요.</p>
+      <div class="card pattern-card">
+        <label class="pattern-row">
+          <span>기상</span>
+          <input type="time" id="pattern-wake" />
+        </label>
+        <label class="pattern-row">
+          <span>점심</span>
+          <input type="time" id="pattern-lunch" />
+        </label>
+        <label class="pattern-row">
+          <span>저녁</span>
+          <input type="time" id="pattern-dinner" />
+        </label>
+        <label class="pattern-row">
+          <span>취침</span>
+          <input type="time" id="pattern-sleep" />
+        </label>
+      </div>
+    </section>
+  </main>
+</div>
+
+<template id="med-card-template">
+  <div class="med-card" data-med-id="">
+    <div class="med-card-top">
+      <input class="med-name-input" type="text" placeholder="안약 이름" />
+      <label class="switch">
+        <input type="checkbox" class="med-enabled-input" />
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="med-card-body">
+      <label class="field-row">
+        <span>점안 방식</span>
+        <select class="med-type-input">
+          <option value="fixed">정해진 시간</option>
+          <option value="interval">몇 시간마다</option>
+        </select>
+      </label>
+      <div class="med-fixed-slots">
+        <label><input type="checkbox" class="slot-check" value="wake" /> 기상</label>
+        <label><input type="checkbox" class="slot-check" value="lunch" /> 점심</label>
+        <label><input type="checkbox" class="slot-check" value="dinner" /> 저녁</label>
+        <label><input type="checkbox" class="slot-check" value="sleep" /> 자기 전</label>
+      </div>
+      <div class="med-interval-fields">
+        <label class="field-row">
+          <span>간격(시간)</span>
+          <input type="number" class="interval-hours-input" min="0.5" step="0.5" />
+        </label>
+        <label class="field-row">
+          <span>하루 횟수</span>
+          <input type="number" class="interval-count-input" min="1" step="1" />
+        </label>
+      </div>
+    </div>
+    <button class="delete-btn" type="button">삭제</button>
+  </div>
+</template>
+
+<script src="js/storage.js"></script>
+<script src="js/schedule.js"></script>
+<script src="js/notify.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
